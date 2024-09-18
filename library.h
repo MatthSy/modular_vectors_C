@@ -1,7 +1,7 @@
 #ifndef MODULAR_VECTORS_LIBRARY_H
 #define MODULAR_VECTORS_LIBRARY_H
 
-#include "ctype.h"
+#include <stddef.h>
 
 /**
  * TODO : add comments with use case examples
