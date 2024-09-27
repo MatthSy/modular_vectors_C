@@ -9,6 +9,8 @@ void test_mv_push();
 
 void test_mv_get();
 
+void test_mv_pop();
+
 void test_mv_from_array();
 
 #endif //TESTS_H

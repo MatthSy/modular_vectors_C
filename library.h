@@ -33,7 +33,7 @@ mv_vector mv_push(mv_vector* vec, void *data);
 
 void* mv_get(mv_vector* vec, size_t index);
 
-void* mv_pop(mv_vector vec);
+void* mv_pop(mv_vector* vec);
 
 /**
  * @brief Sets how much bytes must be allocated everytime there isn't enough already allocated for the data pushed

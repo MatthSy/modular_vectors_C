@@ -12,6 +12,7 @@ void tests_modular_vectors(void) {
     printf("\nTesting data modification functions...\n");
     test_mv_push();
     test_mv_get();
+    test_mv_pop();
 
     printf("\nModular vectors tests finished\n");
 }
