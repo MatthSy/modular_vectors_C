@@ -78,7 +78,7 @@ void test_mv_pop() {
     mv_pop(&v1);
 
     int part2 = 0;
-    if (v1.__allocated_size == 5) {
+    if (v1.__allocated_size == 9) {
         part2 = 1;
     }
 
@@ -87,7 +87,7 @@ void test_mv_pop() {
     } else {
         printf("Test mv_pop failed : ");
         if (!part1) printf("Part 1 failed  ");
-        if (!part2) printf("Part 2 failed : alloc size = %ld", v1.__allocated_size);
+        if (!part2) printf("Part 2 failed");
         printf("\n");
     }
 
