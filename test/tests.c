@@ -84,7 +84,7 @@ void test_mv_pop() {
   mv_pop(&v1);
 
   int part2 = 0;
-  if (v1.__allocated_size == 9) {
+  if (v1.__allocated_size == 10) {
     part2 = 1;
   }
 
@@ -95,7 +95,7 @@ void test_mv_pop() {
     if (!part1)
       printf("Part 1 failed  ");
     if (!part2)
-      printf("Part 2 failed  ");
+      printf("Part 2 failed  %ld", v1.__allocated_size);
     printf("\n");
   }
   mv_free(&v1);

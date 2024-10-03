@@ -60,21 +60,18 @@ void *mv_get(mv_vector *vec, size_t index) {
 
 mv_vector mv_from_array(void *data, size_t num, size_t element_size) {
   mv_vector v = mv_set_element_size(mv_new(), element_size);
-  // TODO : Modif to not use a for loop, just memcpy data into vec
-  for (int i = 0; i < num; i++) {
-    void *val = &data[i * element_size];
-    mv_push(&v, val);
+
+  int mallocd_size = (num + 5) * element_size;
+  v.data = malloc(mallocd_size * sizeof(char));
+  if (v.data == NULL) {
+    fprintf(stderr, "Failed to allocate memory in mv_from_array\n");
+    exit(1);
   }
-  // int mallocd_size = (num + 5) * element_size;
-  // v.data = malloc(mallocd_size);
-  // if (v.data == NULL) {
-  //   fprintf(stderr, "Failed to allocate memory in mv_from_array\n");
-  //   exit(1);
-  // }
-  // memcpy(&v.data, data, num * element_size);
-  // v.__logic_size = num;
-  // v.__allocated_size = mallocd_size;
-  // __mv_block_alloc(&v);
+  
+  memcpy(v.data, data, num * element_size);
+  v.__logic_size = num;
+  v.__allocated_size = mallocd_size;
+  __mv_block_alloc(&v);
 
   return v;
 }
