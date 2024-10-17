@@ -1,4 +1,7 @@
 #include "tests.h"
+
+#include <stdbool.h>
+
 #include "../library.h"
 #include <stdio.h>
 
@@ -120,4 +123,29 @@ void test_mv_from_array() {
     printf("Test mv_from_array failed.\n");
   }
   mv_free(&v);
+}
+
+int __comparFn(const void* a, const void* b) {
+  return *(int*)a - *(int*)b;
+}
+
+void test_mv_qsort() {
+  int arr[] = {5, 3 ,2 ,4 ,1};
+  mv_vector v = mv_from_array(arr, 5, sizeof(int));
+  mv_qsort(&v, __comparFn);
+
+  bool cond = true;
+  for (int i = 0; i < 5; i++) {
+    if (*(int*)mv_get(&v, i) != i + 1) cond = false;
+  }
+
+  if (cond) {
+    printf("Test mv_qsort passed.\n");
+  } else {
+    printf("Test mv_qsort failed : ");
+    for (int i = 0; i < 5; i++) {
+      printf("Val %d : %d   ", i, *(int*)mv_get(&v, i));
+    }
+    printf("\n");
+  }
 }

@@ -44,10 +44,7 @@ mv_vector __mv_block_alloc(mv_vector *vec) {
 mv_vector mv_push(mv_vector *vec, void *data) {
   __mv_block_alloc(vec);
   void *dest =
-      vec->data +
-      vec->__logic_size *
-          vec->__elements_size; // equal to : vec->data[vec->__logic_size
-                                // * vec->__elements_size]
+      vec->data + (vec->__logic_size * vec->__elements_size); // equal to : vec->data[vec->__logic_size * vec->__elements_size]
   vec->__logic_size++;
   memcpy(dest, data, vec->__elements_size);
 
@@ -89,4 +86,8 @@ void mv_free_zeroise(mv_vector *vec) {
   for (int i = 0; i < vec->__logic_size * vec->__elements_size; i++) {
     memcpy(&vec->data[i], &zero, 1);
   }
+}
+
+void mv_qsort(mv_vector *vec, int compar(const void* a, const void* b)) {
+  qsort(vec->data, vec->__logic_size, vec->__elements_size, compar);
 }

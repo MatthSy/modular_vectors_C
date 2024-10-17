@@ -50,4 +50,6 @@ mv_vector *mv_set_block_size(mv_vector *v, size_t block_size);
 
 size_t mv_len(mv_vector *v);
 
+void mv_qsort(mv_vector *vec, int compar(const void* a, const void* b));
+
 #endif // MODULAR_VECTORS_LIBRARY_H

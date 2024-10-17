@@ -13,4 +13,5 @@ void test_mv_pop();
 
 void test_mv_from_array();
 
+void test_mv_qsort();
 #endif //TESTS_H
