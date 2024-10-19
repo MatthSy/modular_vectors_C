@@ -52,4 +52,6 @@ size_t mv_len(mv_vector *v);
 
 void mv_qsort(mv_vector *vec, int compar(const void* a, const void* b));
 
+mv_vector mv_pushf(mv_vector *v, void* data);
+
 #endif // MODULAR_VECTORS_LIBRARY_H
