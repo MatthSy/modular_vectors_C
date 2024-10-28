@@ -92,10 +92,20 @@ void mv_qsort(mv_vector *vec, int compar(const void* a, const void* b)) {
   qsort(vec->data, vec->__logic_size, vec->__elements_size, compar);
 }
 
-mv_vector mv_pushf(mv_vector *v, void* data) {
-  __mv_block_alloc(v);
-  void *source= v->data, *dest = v->data + v->__elements_size;
-  memcpy(dest, source, v->__elements_size * v->__logic_size);
-  memcpy(v->data, data, v->__elements_size);
-  return *v;
+mv_vector mv_pushFront(mv_vector *vec, void* data) {
+  __mv_block_alloc(vec);
+  void *source = vec->data, *dest = vec->data + vec->__elements_size;
+  memcpy(dest, source, vec->__elements_size * vec->__logic_size);
+  memcpy(vec->data, data, vec->__elements_size++);
+  return *vec;
+}
+
+void *mv_popFront(mv_vector *vec) {
+  void *val = mv_get(vec, 0);
+
+  void *dest = vec->data, *source = vec->data + vec->__elements_size;
+  memcpy(dest, source, vec->__elements_size * --vec->__logic_size);
+
+  __mv_block_alloc(vec);
+  return val;
 }

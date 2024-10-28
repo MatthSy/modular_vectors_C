@@ -38,13 +38,14 @@ void *mv_pop(mv_vector *vec);
 void mv_free(mv_vector *vec);
 
 void mv_free_zeroise(mv_vector *vec);
+
 /**
  * @brief Sets how much bytes must be allocated everytime there isn't enough
- * already allocated for the data pushed
+ * room for the data pushed
  * @param v mv_vector
  * @param block_size The number of bytes reallocated every time it is needed
  * @return The reference to the vector given as parameter, with the __block_size
- * value changed
+ * value changed. The address might have changed
  */
 mv_vector *mv_set_block_size(mv_vector *v, size_t block_size);
 
@@ -52,6 +53,8 @@ size_t mv_len(mv_vector *v);
 
 void mv_qsort(mv_vector *vec, int compar(const void* a, const void* b));
 
-mv_vector mv_pushf(mv_vector *v, void* data);
+mv_vector mv_pushFront(mv_vector *vec, void* data);
+
+void *mv_popFront(mv_vector *vec);
 
 #endif // MODULAR_VECTORS_LIBRARY_H

@@ -155,7 +155,7 @@ void test_mv_pushf() {
     int arr[] = {1, 2, 3, 4};
     int val = 5;
     mv_vector v = mv_from_array(arr, 5, sizeof(int));
-    mv_pushf(&v, &val);
+    mv_pushFront(&v, &val);
 
     int cond = 1;
     if (*(int *) mv_get(&v, 0) != 5) cond = 0;
