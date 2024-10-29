@@ -3,4 +3,4 @@ project(modular_vectors C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_library(modular_vectors STATIC library.c)
+add_library(modular_vectors STATIC library.c library.h)

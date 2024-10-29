@@ -92,11 +92,17 @@ void mv_qsort(mv_vector *vec, int compar(const void* a, const void* b)) {
   qsort(vec->data, vec->__logic_size, vec->__elements_size, compar);
 }
 
-mv_vector mv_pushFront(mv_vector *vec, void* data) {
-  __mv_block_alloc(vec);
-  void *source = vec->data, *dest = vec->data + vec->__elements_size;
-  memcpy(dest, source, vec->__elements_size * vec->__logic_size);
+mv_vector mv_pushFront(mv_vector *vec, const void* data) {
+  *vec = __mv_block_alloc(vec);
+  void* source = vec->data;
+  void* dest = source + vec->__elements_size;
+  void* tmpDest = malloc(vec->__elements_size * vec->__logic_size);
+  // TODO : corriger, marche pas
+  memcpy(tmpDest, source, vec->__elements_size * vec->__logic_size);
+  memcpy(dest, tmpDest, vec->__elements_size * vec->__logic_size);
   memcpy(vec->data, data, vec->__elements_size++);
+
+  free(tmpDest);
   return *vec;
 }
 
@@ -106,6 +112,12 @@ void *mv_popFront(mv_vector *vec) {
   void *dest = vec->data, *source = vec->data + vec->__elements_size;
   memcpy(dest, source, vec->__elements_size * --vec->__logic_size);
 
-  __mv_block_alloc(vec);
+  *vec = __mv_block_alloc(vec);
   return val;
+}
+
+mv_vector mv_clone(mv_vector vec) {
+  mv_vector newVec = mv_from_array(vec.data, vec.__logic_size, vec.__elements_size);
+
+  return newVec;
 }

@@ -167,5 +167,30 @@ void test_mv_pushf() {
         printf("Test mv_pushf passed.\n");
     } else {
         printf("Test mv_pushf failed\n");
+        for(int i = 0; i < 5; i++) {
+            printf("Val %d : %d\n", i, *(int *) mv_get(&v, i));
+        }
+    }
+}
+
+// TODO
+void test_mv_popf() {
+
+}
+
+void test_mv_clone() {
+    int arr[] = {1, 2, 3, 4, 5};
+    mv_vector v = mv_from_array(arr, 5, sizeof(int));
+    mv_vector v1 = mv_clone(v);
+
+    int cond = 0;
+    for (int i = 0; i < 5; i++) {
+        if (*(int *) mv_get(&v, i) != *(int *) mv_get(&v1, i)) cond++;
+    }
+
+    if (cond) {
+        printf("Test mv_clone failed");
+    } else {
+        printf("Test mv_clone passed");
     }
 }

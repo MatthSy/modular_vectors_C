@@ -53,8 +53,10 @@ size_t mv_len(mv_vector *v);
 
 void mv_qsort(mv_vector *vec, int compar(const void* a, const void* b));
 
-mv_vector mv_pushFront(mv_vector *vec, void* data);
+mv_vector mv_pushFront(mv_vector *vec, const void* data);
 
 void *mv_popFront(mv_vector *vec);
+
+mv_vector mv_clone(mv_vector vec);
 
 #endif // MODULAR_VECTORS_LIBRARY_H

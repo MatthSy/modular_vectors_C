@@ -16,4 +16,8 @@ void test_mv_from_array();
 void test_mv_qsort();
 
 void test_mv_pushf();
+
+void test_mv_popf();
+
+void test_mv_clone();
 #endif //TESTS_H
