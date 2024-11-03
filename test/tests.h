@@ -20,4 +20,6 @@ void test_mv_pushf();
 void test_mv_popf();
 
 void test_mv_clone();
+
+void test_mv_concat();
 #endif //TESTS_H

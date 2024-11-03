@@ -155,7 +155,7 @@ void test_mv_pushf() {
     int arr[] = {1, 2, 3, 4};
     int val = 5;
     mv_vector v = mv_from_array(arr, 4, sizeof(int));
-    mv_pushFront(&v, &val);
+    mv_push_front(&v, &val);
 
     int cond = 1;
     if (*(int *) mv_get(&v, 0) != 5) cond = 0;
@@ -168,7 +168,7 @@ void test_mv_pushf() {
         printf("Test mv_pushf passed.\n");
     } else {
         printf("Test mv_pushf failed\n");
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             printf("Val %d : %d\n", i, *(int *) mv_get(&v, i));
         }
     }
@@ -177,11 +177,11 @@ void test_mv_pushf() {
 void test_mv_popf() {
     int arr[] = {1, 2, 3, 4, 5};
     mv_vector v = mv_from_array(arr, 5, sizeof(int));
-    mv_popFront(&v);
+    mv_pop_front(&v);
 
     int cond = 0;
     for (int i = 0; i < 4; i++) {
-        if(*(int *) mv_get(&v, i) != i+2) {
+        if (*(int *) mv_get(&v, i) != i + 2) {
             cond++;
         }
     }
@@ -210,4 +210,30 @@ void test_mv_clone() {
     } else {
         printf("Test mv_clone passed");
     }
+    mv_free(&v);
+    mv_free(&v1);
+}
+
+// TODO :
+void test_mv_concat() {
+    int arr1[] = {1, 2, 3, 4, 5};
+    int arr2[] = {6, 7, 8, 9, 10};
+
+    mv_vector v1 = mv_from_array(arr1, 5, sizeof(int));
+    mv_vector v2 = mv_from_array(arr2, 5, sizeof(int));
+    mv_vector result = mv_concat(v1, v2);
+
+    int cond = 0;
+    for (int i = 0; i < 10; i++) {
+        if (*(int*) mv_get(&result, i) != i+1) cond++;
+    }
+
+    if (!cond) {
+        printf("Test mv_concat passed.\n");
+    } else {
+        printf("Test mv_concat failed.\n");
+    }
+    mv_free(&v1);
+    mv_free(&v2);
+    mv_free(&result);
 }

@@ -17,6 +17,7 @@ void tests_modular_vectors(void) {
     test_mv_pop();
     test_mv_popf();
     test_mv_qsort();
+    test_mv_concat();
 
     printf("\nModular vectors tests finished");
 }

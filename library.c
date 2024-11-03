@@ -92,7 +92,7 @@ void mv_qsort(mv_vector *vec, int compar(const void* a, const void* b)) {
   qsort(vec->data, vec->__logic_size, vec->__elements_size, compar);
 }
 
-mv_vector mv_pushFront(mv_vector *vec, const void* data) {
+mv_vector mv_push_front(mv_vector *vec, const void* data) {
   __mv_block_alloc(vec);
   void* source = vec->data;
   void* dest = source + vec->__elements_size;
@@ -107,7 +107,7 @@ mv_vector mv_pushFront(mv_vector *vec, const void* data) {
   return *vec;
 }
 
-void *mv_popFront(mv_vector *vec) {
+void *mv_pop_front(mv_vector *vec) {
   void *val = mv_get(vec, 0);
 
   void *dest = vec->data, *source = vec->data + vec->__elements_size;
@@ -121,4 +121,26 @@ mv_vector mv_clone(mv_vector vec) {
   mv_vector newVec = mv_from_array(vec.data, vec.__logic_size, vec.__elements_size);
 
   return newVec;
+}
+
+mv_vector mv_concat(mv_vector a, mv_vector b) {
+  if (a.__elements_size != b.__elements_size) {
+    printf("Error in modular vectors mv_concat func, elements size should be the same for a and b\n");
+    exit(-1);
+  }
+  const size_t elemSize = a.__elements_size;
+  const size_t numElem = a.__logic_size + b.__logic_size;
+  const size_t totalByteSize = numElem * elemSize;
+  void* concArr = malloc(totalByteSize);
+  if (concArr == NULL) {
+    printf("Error in modular vectors mv_concat func, malloc failed\n");
+    exit(-1);
+  }
+
+  memcpy(concArr, a.data, elemSize * a.__logic_size);
+  memcpy(concArr + a.__logic_size * elemSize, b.data, elemSize * b.__logic_size);
+  mv_vector vec = mv_from_array(concArr, numElem, elemSize);
+
+  free(concArr);
+  return vec;
 }
