@@ -214,7 +214,6 @@ void test_mv_clone() {
     mv_free(&v1);
 }
 
-// TODO :
 void test_mv_concat() {
     int arr1[] = {1, 2, 3, 4, 5};
     int arr2[] = {6, 7, 8, 9, 10};
@@ -236,4 +235,30 @@ void test_mv_concat() {
     mv_free(&v1);
     mv_free(&v2);
     mv_free(&result);
+}
+
+void test_mv_concat_to() {
+    int arr1[] = {1, 2, 3, 4, 5};
+    int arr2[] = {6, 7, 8, 9, 10};
+
+    mv_vector v1 = mv_from_array(arr1, 5, sizeof(int));
+    mv_vector v2 = mv_from_array(arr2, 5, sizeof(int));
+    mv_concat_to(&v1, v2);
+
+    int cond = 0;
+    for (int i = 0; i < 10; i++) {
+        if (*(int*) mv_get(&v1, i) != i+1) cond++;
+    }
+    if (v1.__logic_size != 10) cond++;
+
+    if (!cond) {
+        printf("Test mv_concat_to passed.\n");
+    } else {
+        printf("Test mv_concat_to failed -> %d errors.\n", cond);
+        for (int i = 0; i < 10; i++) {
+            printf("Val %d : %d\n", i, *(int *) mv_get(&v1, i));
+        }
+    }
+    mv_free(&v1);
+    mv_free(&v2);
 }

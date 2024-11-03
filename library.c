@@ -144,3 +144,11 @@ mv_vector mv_concat(mv_vector a, mv_vector b) {
   free(concArr);
   return vec;
 }
+
+void mv_concat_to(mv_vector *a, mv_vector b) {
+    size_t size = a->__logic_size * a->__elements_size;
+    a->__logic_size += b.__logic_size;
+    __mv_block_alloc(a);
+
+   memcpy(a->data + size, b.data, b.__elements_size * b.__logic_size);
+}

@@ -22,4 +22,6 @@ void test_mv_popf();
 void test_mv_clone();
 
 void test_mv_concat();
+
+void test_mv_concat_to();
 #endif //TESTS_H
