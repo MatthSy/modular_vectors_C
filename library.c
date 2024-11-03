@@ -93,16 +93,17 @@ void mv_qsort(mv_vector *vec, int compar(const void* a, const void* b)) {
 }
 
 mv_vector mv_pushFront(mv_vector *vec, const void* data) {
-  *vec = __mv_block_alloc(vec);
+  __mv_block_alloc(vec);
   void* source = vec->data;
   void* dest = source + vec->__elements_size;
-  void* tmpDest = malloc(vec->__elements_size * vec->__logic_size);
-  // TODO : corriger, marche pas
-  memcpy(tmpDest, source, vec->__elements_size * vec->__logic_size);
-  memcpy(dest, tmpDest, vec->__elements_size * vec->__logic_size);
-  memcpy(vec->data, data, vec->__elements_size++);
+  size_t bytesSize = vec->__elements_size * vec->__logic_size;
 
-  free(tmpDest);
+  // memcpy(tmpDest, vec->data, bytesSize);
+  memcpy(dest, source, bytesSize);
+  // cpy input data to the front of the array
+  memcpy(vec->data, data, vec->__elements_size);
+
+  vec->__logic_size++;
   return *vec;
 }
 

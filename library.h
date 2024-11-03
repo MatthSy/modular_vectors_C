@@ -59,4 +59,7 @@ void *mv_popFront(mv_vector *vec);
 
 mv_vector mv_clone(mv_vector vec);
 
+mv_vector mv_concat(mv_vector vec1, mv_vector vec2);
+
+void mv_concat_to(mv_vector *vec1, mv_vector vec2);
 #endif // MODULAR_VECTORS_LIBRARY_H

@@ -154,7 +154,7 @@ void test_mv_qsort() {
 void test_mv_pushf() {
     int arr[] = {1, 2, 3, 4};
     int val = 5;
-    mv_vector v = mv_from_array(arr, 5, sizeof(int));
+    mv_vector v = mv_from_array(arr, 4, sizeof(int));
     mv_pushFront(&v, &val);
 
     int cond = 1;
@@ -162,6 +162,7 @@ void test_mv_pushf() {
     for (int i = 1; i < 5; i++) {
         if (*(int *) mv_get(&v, i) != i) cond = 0;
     }
+    if (v.__logic_size != 5) cond++;
 
     if (cond) {
         printf("Test mv_pushf passed.\n");
@@ -173,9 +174,25 @@ void test_mv_pushf() {
     }
 }
 
-// TODO
 void test_mv_popf() {
+    int arr[] = {1, 2, 3, 4, 5};
+    mv_vector v = mv_from_array(arr, 5, sizeof(int));
+    mv_popFront(&v);
 
+    int cond = 0;
+    for (int i = 0; i < 4; i++) {
+        if(*(int *) mv_get(&v, i) != i+2) {
+            cond++;
+        }
+    }
+    if (v.__logic_size != 4) cond++;
+
+    if (!cond) {
+        printf("Test mv_popf passed.\n");
+    } else {
+        printf("Test mv_popf failed.\n");
+    }
+    mv_free(&v);
 }
 
 void test_mv_clone() {
